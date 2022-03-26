@@ -1,0 +1,11 @@
+.App {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr ;
+  padding: 30px;
+
+}
+
+.App > div {
+  margin-right: 50px;
+}
