@@ -1,5 +1,5 @@
 import React from "react";
-
+import s from "./Button.module.css"
 type ButtonPropsType = {
     callBackClick:() => void
     isDisabled:boolean
@@ -11,7 +11,7 @@ const Button:React.FC<ButtonPropsType>=({callBackClick, isDisabled,name})=>{
         callBackClick()
     }
     return(
-        <button
+        <button className={s.button}
             disabled={isDisabled}
             onClick={onClicIncHendler}>
             {name}

@@ -6,8 +6,11 @@ import Button from "./Button";
 const App: React.FC = () => {
     const [count, setCount] = useState<number>(0)
 
-       const incCount = () => {
-        setCount(count+1)
+    const [startCount, stopCount] = [0, 5]
+
+    const incCount = () => {
+        if (count < stopCount)
+        setCount(count + 1)
     }
 
     const resetCount = () => {
@@ -16,11 +19,13 @@ const App: React.FC = () => {
 
     return (
 
-        <div className={s.App}>
-            <Show count={count}/>
-            <div>
-                <Button name={"Increment"} callBackClick={incCount} isDisabled={count===5}/>
-                <Button name={"Reset"} callBackClick={resetCount} isDisabled={count===0}/>
+        <div className={count===stopCount ? s.mainContainerStop : s.mainContainer}>
+            <div className={s.showContainer}>
+                <Show count={count}/>
+            </div>
+            <div className={s.buttonContainer}>
+                <Button name={"Increment"} callBackClick={incCount} isDisabled={count === stopCount}/>
+                <Button name={"Reset"} callBackClick={resetCount} isDisabled={count === startCount}/>
             </div>
         </div>
     );

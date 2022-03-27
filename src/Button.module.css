@@ -1,0 +1,22 @@
+.button {
+    font-weight: 500;
+    color: #141212;
+    text-decoration: none;
+    /*padding: .8em 1em calc(.8em + 3px);*/
+    border-radius: 10px;
+    background: yellow;
+    box-shadow: 0 -3px rgb(53, 167, 110) inset;
+    transition: 0.2s;
+    margin: 2px;
+    padding: 10px;
+    width: 80px;
+}
+
+.button:hover {
+    background: rgb(53, 167, 110);
+}
+
+.button:active {
+    background: rgb(33, 147, 90);
+    box-shadow: 0 3px rgb(33, 147, 90) inset;
+}
