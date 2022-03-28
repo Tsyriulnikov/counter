@@ -1,20 +1,16 @@
-/*.App {*/
-/*  display: grid;*/
-/*  grid-template-rows: 1fr 1fr;*/
-/*  grid-template-columns: 1fr ;*/
-/*  padding: 30px;*/
-
-/*}*/
-
-/*.App > div {*/
-/*  margin-right: 50px;*/
-/*}*/
+.red {
+    color: red;
+}
+div {
+    text-align: center;
+    font-size: larger;
+}
 .mainContainer {
     border: 1px solid #0d045a;
     box-shadow: 1px 1px 5px #000;
     height: 170px;
     width: 200px;
-    margin: 30px auto;
+    margin: 150px auto;
     padding: 10px;
     border-radius: 8px;
     background: aqua;
@@ -24,7 +20,7 @@
     box-shadow: 1px 1px 5px #000;
     height: 170px;
     width: 200px;
-    margin: 30px auto;
+    margin: 150px auto;
     padding: 10px;
     border-radius: 8px;
     background: palevioletred;
