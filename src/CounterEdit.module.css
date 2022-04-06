@@ -1,0 +1,50 @@
+input {
+    width: 50px;
+
+    }
+.mainContainer {
+    border: 1px solid #0d045a;
+    box-shadow: 1px 1px 5px #000;
+    height: 170px;
+    width: 300px;
+    margin: 150px 8em 10px 2em;
+    padding: 10px;
+    border-radius: 8px;
+    background: aqua;
+    text-align: center;
+}
+.mainContainerStop {
+    text-align: center;
+    border: 1px solid #0d045a;
+    box-shadow: 1px 1px 5px #000;
+    height: 170px;
+    width: 200px;
+    margin: 250px ;
+    padding: 10px;
+    border-radius: 8px;
+    background: palevioletred;
+}
+
+
+.showContainer {
+    font-size: larger;
+    text-align: center;
+    border: 1px solid black;
+    box-shadow: 1px 1px 5px #000;
+    height: 50px;
+    width: 170px;
+    margin: 5px auto;
+    padding: 10px;
+    border-radius: 8px;
+    background: white;
+}
+.buttonContainer{
+    border: 1px solid black;
+    box-shadow: 1px 1px 5px #000;
+    height: 50px;
+    width: 170px;
+    margin: 12px auto;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+}
