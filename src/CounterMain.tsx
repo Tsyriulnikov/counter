@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import s from "./CounterMain.module.css";
+import s from "./App.module.css";
 import Button from "./Button";
 
 type CountMainPropsType = {
@@ -10,21 +10,10 @@ type CountMainPropsType = {
 const CounterMain: React.FC<CountMainPropsType> = (props) => {
     const [count, setCount] = useState<number>(props.startCount)
 
-   // let startCount:number=0
-   // let stopCount:number=5
-
-    // useEffect(() => {setCount(props.startCount)}, [props.startCount])
-    useEffect(() => {setCount(props.startCount)}, [props.startCount])
-
-    // useEffect(() => {
-    //     let stopCountString = localStorage.getItem("maxValue");
-    //     if (stopCountString) stopCount= JSON.parse(stopCountString)
-    // // }, [])
-
     //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
       useEffect(() => {
-        let countStorageString = localStorage.getItem("currentCount");
-        if (countStorageString) setCount(JSON.parse(countStorageString))
+        let startValueStorage = localStorage.getItem("startValue");
+        if (startValueStorage) setCount(JSON.parse(startValueStorage))
     }, [])
 
 //Закидываем счётчик в localStorage. Отслеживаем изменения по count
@@ -45,7 +34,7 @@ const CounterMain: React.FC<CountMainPropsType> = (props) => {
 
         <div className={count === props.maxCount ? s.mainContainerStop : s.mainContainer}>
             <div className={s.showContainer}>
-                <div className={count === 5 ? s.red : ""}>{count}</div>
+                <div className={count === props.maxCount ? s.red : s.showValue}>{count}</div>
             </div>
             <div className={s.buttonContainer}>
                 <Button name={"Increment"} callBackClick={incCount} isDisabled={count === props.maxCount}/>
