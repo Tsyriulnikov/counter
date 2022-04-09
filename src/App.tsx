@@ -22,16 +22,17 @@ const App: React.FC = () => {
 
 
     const setCounter = () => {
-setSet(true)
+        setSet(true)
         localStorage.setItem('maxValue', JSON.stringify(parseInt(maxValue)))
         localStorage.setItem('startValue', JSON.stringify(parseInt(startValue)))
     }
 
 
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMaxValue(e.currentTarget.value)
+        setMaxValue(e.currentTarget.value);
         setSet(false)
     }
+    // !isNaN(parseInt(maxValue)) ? setSet(false) : setSet(true)
     const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setStartValue(e.currentTarget.value)
         setSet(false)

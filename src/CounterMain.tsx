@@ -44,15 +44,18 @@ const messege:string = "enter value and press SET"
             <div className={s.showContainer}>
 
                     {props.set ?
-                        <div className={count === props.maxCount ? s.red : s.showValue}>{count}</div>
+                        <div className={count === props.maxCount ? s.red
+                            : s.showValue}>{count}</div>
 
                         : <div>{messege}</div>
                     }
 
             </div>
             <div className={s.buttonContainer}>
-                <Button name={"Increment"} callBackClick={incCount} isDisabled={count === props.maxCount}/>
-                <Button name={"Reset"} callBackClick={resetCount} isDisabled={count === props.startCount}/>
+                <Button name={"Increment"} callBackClick={incCount} isDisabled={count === props.maxCount ||
+                      !props.set}/>
+                <Button name={"Reset"} callBackClick={resetCount} isDisabled={count === props.startCount ||
+                    !props.set}/>
             </div>
         </div>
     );
