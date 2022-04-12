@@ -9,6 +9,8 @@ const App: React.FC = () => {
     let [maxValue, setMaxValue] = useState<string>("0")
     let [startValue, setStartValue] = useState<string>("0")
     let [set, setSet] = useState<boolean>(true)
+    let [errorMax, setErrorMax] = useState<string>("")
+    let [errorStart, setErrorStart] = useState<string>("")
 
 //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
     useEffect(() => {
@@ -26,16 +28,32 @@ const App: React.FC = () => {
         localStorage.setItem('maxValue', JSON.stringify(parseInt(maxValue)))
         localStorage.setItem('startValue', JSON.stringify(parseInt(startValue)))
     }
+//Проверка ввода на валидность число - строка
+    const filterInt = (value: string) => {
+        if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+            return Number(value);
+        return NaN;
+    }
 
 
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMaxValue(e.currentTarget.value);
-        setSet(false)
+        let currentValue = e.currentTarget.value
+        setMaxValue(currentValue);
+        // setSet(false);
+        isNaN(filterInt(currentValue)) ? setErrorMax("error") : setErrorMax('');
+        errorMax==="error"  ? setSet(true): setSet(false)
+
+
     }
-    // !isNaN(parseInt(maxValue)) ? setSet(false) : setSet(true)
+
+
+
     const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValue(e.currentTarget.value)
-        setSet(false)
+        let currentValue = e.currentTarget.value
+        setStartValue(currentValue)
+        // setSet(false)
+        isNaN(filterInt(currentValue)) ? setErrorStart("error") : setErrorStart('')
+        // errorMax || errorStart ? setSet(false): setSet(true)
     }
 
 
@@ -46,26 +64,31 @@ const App: React.FC = () => {
                 <div className={s.showContainer}>
                     <div>
                        <span>max value:
-                           <input
-                               value={maxValue}
-                               onChange={maxValueHandler}/>
-                       </span>
+
+                           <input className={errorMax ? s.error : ""}
+
+                                  value={maxValue}
+
+                                  onChange={maxValueHandler}/>
+
+                           </span>
                         <br/>
                         <span>start value:
-                           <input
+                           <input className={errorStart ? s.error : ""}
                                value={startValue}
                                onChange={startValueHandler}/>
                        </span>
                     </div>
                 </div>
                 <div className={s.buttonContainer}>
-                    <Button name={"Set"} callBackClick={setCounter} isDisabled={set}/>
+                    <Button name={"Set"} callBackClick={setCounter} isDisabled={set }/>
                 </div>
             </div>
 
             <CounterMain startCount={parseInt(startValue)}
                          maxCount={parseInt(maxValue)}
                          set={set}
+                         error={errorMax || errorStart}
             />
         </div>
     )

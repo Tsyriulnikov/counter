@@ -3,16 +3,19 @@ import s from "./App.module.css";
 import Button from "./Button";
 
 type CountMainPropsType = {
-    startCount:number
-    maxCount:number
-    set:boolean
+    startCount: number
+    maxCount: number
+    set: boolean
+    error:string
 }
 
 const CounterMain: React.FC<CountMainPropsType> = (props) => {
     const [count, setCount] = useState<number>(props.startCount)
-const messege:string = "enter value and press SET"
+    const messegeInputValue: string = "enter value and press SET"
+    const messegeIncorrect: string = "incorrect value!"
+
     //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
-      useEffect(() => {
+    useEffect(() => {
         let startValueStorage = localStorage.getItem("startValue");
         if (startValueStorage) setCount(JSON.parse(startValueStorage))
     }, [])
@@ -24,7 +27,6 @@ const messege:string = "enter value and press SET"
     useEffect(() => {
         if (!isNaN(props.startCount)) setCount(props.startCount)
     }, [props.startCount])
-
 
 
     // Увеличиваем значение счётчика.
@@ -43,17 +45,22 @@ const messege:string = "enter value and press SET"
         <div className={count === props.maxCount ? s.mainContainerStop : s.mainContainer}>
             <div className={s.showContainer}>
 
-                    {props.set ?
-                        <div className={count === props.maxCount ? s.red
-                            : s.showValue}>{count}</div>
+                {props.set ?
+                    <div className={count === props.maxCount ? s.red
+                        : s.showValue}>{count}</div>
 
-                        : <div>{messege}</div>
+                    : <div>{props.error ?
+                    messegeIncorrect :
+                    messegeInputValue
                     }
+
+                    </div>
+                }
 
             </div>
             <div className={s.buttonContainer}>
                 <Button name={"Increment"} callBackClick={incCount} isDisabled={count === props.maxCount ||
-                      !props.set}/>
+                    !props.set}/>
                 <Button name={"Reset"} callBackClick={resetCount} isDisabled={count === props.startCount ||
                     !props.set}/>
             </div>
