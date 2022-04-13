@@ -6,11 +6,11 @@ type CountMainPropsType = {
     startCount: number
     maxCount: number
     set: boolean
-    error:string
+    error:boolean
 }
 
 const CounterMain: React.FC<CountMainPropsType> = (props) => {
-    const [count, setCount] = useState<number>(props.startCount)
+    const [count, setCount] = useState<number>(0)
     const messegeInputValue: string = "enter value and press SET"
     const messegeIncorrect: string = "incorrect value!"
 
@@ -45,7 +45,7 @@ const CounterMain: React.FC<CountMainPropsType> = (props) => {
         <div className={count === props.maxCount ? s.mainContainerStop : s.mainContainer}>
             <div className={s.showContainer}>
 
-                {props.set ?
+                {!props.set ?
                     <div className={count === props.maxCount ? s.red
                         : s.showValue}>{count}</div>
 
@@ -60,9 +60,9 @@ const CounterMain: React.FC<CountMainPropsType> = (props) => {
             </div>
             <div className={s.buttonContainer}>
                 <Button name={"Increment"} callBackClick={incCount} isDisabled={count === props.maxCount ||
-                    !props.set}/>
+                    props.set}/>
                 <Button name={"Reset"} callBackClick={resetCount} isDisabled={count === props.startCount ||
-                    !props.set}/>
+                    props.set}/>
             </div>
         </div>
     );

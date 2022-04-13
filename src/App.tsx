@@ -9,8 +9,8 @@ const App: React.FC = () => {
     let [maxValue, setMaxValue] = useState<string>("0")
     let [startValue, setStartValue] = useState<string>("0")
     let [set, setSet] = useState<boolean>(true)
-    let [errorMax, setErrorMax] = useState<string>("")
-    let [errorStart, setErrorStart] = useState<string>("")
+    let [errorMax, setErrorMax] = useState<boolean>(false)
+    let [errorStart, setErrorStart] = useState<boolean>(false)
 
 //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
     useEffect(() => {
@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
 
     const setCounter = () => {
-        setSet(true)
+        // setSet(true)
         localStorage.setItem('maxValue', JSON.stringify(parseInt(maxValue)))
         localStorage.setItem('startValue', JSON.stringify(parseInt(startValue)))
     }
@@ -35,26 +35,21 @@ const App: React.FC = () => {
         return NaN;
     }
 
-
+//Обработка максимального значения
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let currentValue = e.currentTarget.value
-        setMaxValue(currentValue);
-        // setSet(false);
-        isNaN(filterInt(currentValue)) ? setErrorMax("error") : setErrorMax('');
-        errorMax==="error"  ? setSet(true): setSet(false)
-
-
+        setMaxValue(e.currentTarget.value);
     }
 
-
-
+    //Обработка стартового значения
     const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        let currentValue = e.currentTarget.value
-        setStartValue(currentValue)
-        // setSet(false)
-        isNaN(filterInt(currentValue)) ? setErrorStart("error") : setErrorStart('')
-        // errorMax || errorStart ? setSet(false): setSet(true)
+        setStartValue(e.currentTarget.value)
     }
+
+    useEffect(() => {
+        isNaN(filterInt(maxValue)) ? setErrorMax(true) : setErrorMax(false)
+        isNaN(filterInt(startValue)) ? setErrorStart(true) : setErrorStart(false)
+        errorMax || errorStart ? setSet(true) : setSet(false)
+    });
 
 
     return (
@@ -75,17 +70,18 @@ const App: React.FC = () => {
                         <br/>
                         <span>start value:
                            <input className={errorStart ? s.error : ""}
-                               value={startValue}
-                               onChange={startValueHandler}/>
+                                  value={startValue}
+                                  onChange={startValueHandler}/>
                        </span>
                     </div>
                 </div>
                 <div className={s.buttonContainer}>
-                    <Button name={"Set"} callBackClick={setCounter} isDisabled={set }/>
+                    <Button name={"Set"} callBackClick={setCounter} isDisabled={set}/>
                 </div>
             </div>
 
-            <CounterMain startCount={parseInt(startValue)}
+            <CounterMain
+                         startCount={parseInt(startValue)}
                          maxCount={parseInt(maxValue)}
                          set={set}
                          error={errorMax || errorStart}
