@@ -7,26 +7,28 @@ import Button from "./Button";
 const App: React.FC = () => {
 
     let [maxValue, setMaxValue] = useState<string>("0")
+    let [startValueTemp, setStartValueTemp] = useState<string>("0")
     let [startValue, setStartValue] = useState<string>("0")
     let [set, setSet] = useState<boolean>(true)
-    let [errorMax, setErrorMax] = useState<boolean>(false)
-    let [errorStart, setErrorStart] = useState<boolean>(false)
+    let [error, setError] = useState<boolean>(false)
 
 //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
     useEffect(() => {
         let maxValueStorage = localStorage.getItem("maxValue");
         if (maxValueStorage) setMaxValue(JSON.parse(maxValueStorage))
-    }, [])
-    useEffect(() => {
         let startValueStorage = localStorage.getItem("startValue");
-        if (startValueStorage) setStartValue(JSON.parse(startValueStorage))
-    }, [])
+        if (startValueStorage) {
+            setStartValueTemp(JSON.parse(startValueStorage))
+            setStartValue(JSON.parse(startValueStorage))
+        };
 
+    }, [])
 
     const setCounter = () => {
-        // setSet(true)
+         setSet(true)
+        setStartValue(startValueTemp)
         localStorage.setItem('maxValue', JSON.stringify(parseInt(maxValue)))
-        localStorage.setItem('startValue', JSON.stringify(parseInt(startValue)))
+        localStorage.setItem('startValue', JSON.stringify(parseInt(startValueTemp)))
     }
 //Проверка ввода на валидность число - строка
     const filterInt = (value: string) => {
@@ -42,13 +44,16 @@ const App: React.FC = () => {
 
     //Обработка стартового значения
     const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValue(e.currentTarget.value)
+        setStartValueTemp(e.currentTarget.value)
     }
 
     useEffect(() => {
-        isNaN(filterInt(maxValue)) ? setErrorMax(true) : setErrorMax(false)
-        isNaN(filterInt(startValue)) ? setErrorStart(true) : setErrorStart(false)
-        errorMax || errorStart ? setSet(true) : setSet(false)
+        isNaN(filterInt(startValueTemp)) ||
+        isNaN(filterInt(maxValue)) ||
+         parseInt(startValueTemp)>=parseInt(maxValue)
+            ? setError(true) : setError(false)
+
+         error ? setSet(true) : setSet(false)
     });
 
 
@@ -60,7 +65,7 @@ const App: React.FC = () => {
                     <div>
                        <span>max value:
 
-                           <input className={errorMax ? s.error : ""}
+                           <input className={error ? s.error : ""}
 
                                   value={maxValue}
 
@@ -69,8 +74,8 @@ const App: React.FC = () => {
                            </span>
                         <br/>
                         <span>start value:
-                           <input className={errorStart ? s.error : ""}
-                                  value={startValue}
+                           <input className={error ? s.error : ""}
+                                  value={startValueTemp}
                                   onChange={startValueHandler}/>
                        </span>
                     </div>
@@ -84,7 +89,7 @@ const App: React.FC = () => {
                          startCount={parseInt(startValue)}
                          maxCount={parseInt(maxValue)}
                          set={set}
-                         error={errorMax || errorStart}
+                         error={error}
             />
         </div>
     )

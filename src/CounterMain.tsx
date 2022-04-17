@@ -10,7 +10,7 @@ type CountMainPropsType = {
 }
 
 const CounterMain: React.FC<CountMainPropsType> = (props) => {
-    const [count, setCount] = useState<number>(0)
+    const [count, setCount] = useState<number>(props.startCount)
     const messegeInputValue: string = "enter value and press SET"
     const messegeIncorrect: string = "incorrect value!"
 
@@ -20,8 +20,8 @@ const CounterMain: React.FC<CountMainPropsType> = (props) => {
         if (startValueStorage) setCount(JSON.parse(startValueStorage))
     }, [])
 
-//Закидываем счётчик в localStorage. Отслеживаем изменения по count
-    useEffect(() => localStorage.setItem('currentCount', JSON.stringify(count)), [count]);
+// //Закидываем счётчик в localStorage. Отслеживаем изменения по count
+//     useEffect(() => localStorage.setItem('currentCount', JSON.stringify(count)), [count]);
 
 //
     useEffect(() => {
