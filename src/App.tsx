@@ -7,15 +7,10 @@ import Button from "./Button";
 const App: React.FC = () => {
 
     let [maxValue, setMaxValue] = useState<string>("0")
-    // let [startValueTemp, setStartValueTemp] = useState<string>("0")
     let [startValue, setStartValue] = useState<string>("0")
     let [set, setSet] = useState<boolean>(true)
     let [error, setError] = useState<boolean>(false)
-
-    // const [startValueError, setStartValueError] = useState(false)
-    // const [maxValueError, setMaxValueError] = useState(false)
-    // const [disabled, setDisabled] = useState(false)
-    // const [disabledReset, setDisabledReset] = useState(true)
+    let [disableButtonSet, setDisableButtonSet] = useState<boolean>(false)
 //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
     useEffect(() => {
         let maxValueStorage = localStorage.getItem("maxValue");
@@ -24,105 +19,36 @@ const App: React.FC = () => {
         if (startValueStorage) {
             setStartValue(JSON.parse(startValueStorage))
             setStartValue(JSON.parse(startValueStorage))
-        };
-
+        }
+        ;
     }, [])
 
+//Нажтие на кнопку Set
     const setCounter = () => {
-         setSet(true)
-        setStartValue(startValue)
+        setSet(false)
+        setDisableButtonSet(true)
         localStorage.setItem('maxValue', JSON.stringify(parseInt(maxValue)))
         localStorage.setItem('startValue', JSON.stringify(parseInt(startValue)))
     }
-//Проверка ввода на валидность число - строка
-    const filterInt = (value: string) => {
-        if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
-            return Number(value);
-        return NaN;
-    }
-
 //Обработка максимального значения
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMaxValue(e.currentTarget.value);
+        let value = e.currentTarget.value;
+        let isError = (+startValue < 0 || +value <= 0 || +startValue >= +value);
+        isError ? setError(true) : setError(false)
+        setSet(true)
+        isError ? setDisableButtonSet(true) : setDisableButtonSet(false)
+        setMaxValue(value);
     }
-
-    // const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //     const isIncorrectValue = +startValue === +e.currentTarget.value || +e.currentTarget.value < 0
-    //         || +startValue > +e.currentTarget.value;
-    //
-    //     if (isIncorrectValue) {
-    //
-    //         setStartValueError(true)
-    //         setMaxValueError(true)
-    //         // setText('Incorrect value!')
-    //         setDisabled(true)
-    //     } else if (+e.currentTarget.value >= 0 && +startValue >= 0) {
-    //
-    //         setStartValueError(false)
-    //         setMaxValueError(false)
-    //         // setText(`enter values and press 'set'`)
-    //         setDisabled(false)
-    //     } else if (+startValue < 0) {
-    //
-    //         setStartValueError(true)
-    //         setMaxValueError(false)
-    //         setDisabled(true)
-    //     }
-    //     setDisabledReset(true)
-    //     setMaxValue(e.currentTarget.value)
-    // }
-
-
-
-    //Обработка стартового значения
+//Обработка стартового значения
     const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValue(e.currentTarget.value)
+        let value = e.currentTarget.value;
+        let isError = (+value < 0 || +maxValue <= 0 || +value >= +maxValue);
+        isError ? setError(true) : setError(false)
+        setSet(true)
+        setDisableButtonSet(false)
+        isError ? setDisableButtonSet(true) : setDisableButtonSet(false)
+        setStartValue(value)
     }
-
-//     const startValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-//     const isIncorrectValue = +e.currentTarget.value === +maxValue || +maxValue < 0 || +e.currentTarget.value > +maxValue
-//     if (isIncorrectValue) {
-//         setStartValueError(true)
-//         setMaxValueError(true)  ///!
-//         // setText('Incorrect value!')
-//         setDisabled(true)
-//     } else if (+e.currentTarget.value >= 0 && +maxValue >= 0) {
-//         setStartValueError(false)
-//         setMaxValueError(false) ////!
-//         // setText(`enter values and press 'set'`)
-//         setDisabled(false)
-//     } else if (+e.currentTarget.value < 0) {
-//         setStartValueError(true)
-//         setMaxValueError(false)
-//         setDisabled(true)
-//     }
-//     setDisabledReset(true)
-//     setStartValue(e.currentTarget.value)
-// }
-
-
-
-
-
-// useEffect(() => {
-    //     isNaN(filterInt(startValueTemp)) ||
-    //     isNaN(filterInt(maxValue)) ||
-    //      parseInt(startValueTemp)>=parseInt(maxValue)
-    //         ? setError(true) : setError(false)
-    //
-    //      error ? setSet(true) : setSet(false)
-    // });
-
-    useEffect(() => {
-        isNaN(filterInt(startValue)) ||
-        isNaN(filterInt(maxValue)) ||
-         parseInt(startValue)>=parseInt(maxValue)
-            ? setError(true) : setError(false)
-
-         error ? setSet(true) : setSet(false)
-    });
-
-
     return (
         <div className={s.mainApp}>
 
@@ -130,13 +56,10 @@ const App: React.FC = () => {
                 <div className={s.showContainer}>
                     <div>
                        <span>max value:
-
                            <input className={error ? s.error : ""}
                                   type={'number'}
                                   value={maxValue}
-
                                   onChange={maxValueHandler}/>
-
                            </span>
                         <br/>
                         <span>start value:
@@ -148,15 +71,14 @@ const App: React.FC = () => {
                     </div>
                 </div>
                 <div className={s.buttonContainer}>
-                    <Button name={"Set"} callBackClick={setCounter} isDisabled={set}/>
+                    <Button name={"Set"} callBackClick={setCounter} isDisabled={disableButtonSet}/>
                 </div>
             </div>
-
             <CounterMain
-                         startCount={parseInt(startValue)}
-                         maxCount={parseInt(maxValue)}
-                         set={set}
-                         error={error}
+                startCount={parseInt(startValue)}
+                maxCount={parseInt(maxValue)}
+                set={set}
+                error={error}
             />
         </div>
     )

@@ -6,57 +6,45 @@ type CountMainPropsType = {
     startCount: number
     maxCount: number
     set: boolean
-    error:boolean
-}
-
+    error: boolean
+   }
 const CounterMain: React.FC<CountMainPropsType> = (props) => {
     const [count, setCount] = useState<number>(props.startCount)
     const messegeInputValue: string = "enter value and press SET"
     const messegeIncorrect: string = "incorrect value!"
-
-    //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
+//Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
     useEffect(() => {
         let startValueStorage = localStorage.getItem("startValue");
         if (startValueStorage) setCount(JSON.parse(startValueStorage))
     }, [])
-
-// //Закидываем счётчик в localStorage. Отслеживаем изменения по count
-//     useEffect(() => localStorage.setItem('currentCount', JSON.stringify(count)), [count]);
-
-//
+// При нажатии Set обновляем компоненту + сбрасывем стартовое значение
     useEffect(() => {
-        if (!isNaN(props.startCount)) setCount(props.startCount)
-    }, [props.startCount])
-
-
-    // Увеличиваем значение счётчика.
+        resetCount()
+    }, [props.set])
+// Увеличиваем значение счётчика.
     const incCount = () => {
         if (count < props.maxCount) {
-            setCount((count)=>count + 1)
+            setCount((count) => count + 1)
         }
     }
-
+//Сброс счётчика
     const resetCount = () => {
         setCount(props.startCount)
     }
-
     return (
-
         <div className={count === props.maxCount ? s.mainContainerStop : s.mainContainer}>
             <div className={s.showContainer}>
 
-                {!props.set ?
+                {!props.set && !props.error ?
                     <div className={count === props.maxCount ? s.red
                         : s.showValue}>{count}</div>
 
                     : <div>{props.error ?
-                    messegeIncorrect :
-                    messegeInputValue
+                        messegeIncorrect :
+                        messegeInputValue
                     }
-
                     </div>
                 }
-
             </div>
             <div className={s.buttonContainer}>
                 <Button name={"Increment"} callBackClick={incCount} isDisabled={count === props.maxCount ||
@@ -66,6 +54,5 @@ const CounterMain: React.FC<CountMainPropsType> = (props) => {
             </div>
         </div>
     );
-
 }
 export default CounterMain;
