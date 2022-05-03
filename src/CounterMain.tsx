@@ -32,7 +32,7 @@ const CounterMain: React.FC<CountMainPropsType> = (props) => {
     // Увеличиваем значение счётчика.
     const incCount = () => {
         if (count < props.maxCount) {
-            setCount(count + 1)
+            setCount((count)=>count + 1)
         }
     }
 
