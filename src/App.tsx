@@ -36,6 +36,7 @@ const App: React.FC = () => {
         let isError = (+startValue < 0 || +value <= 0 || +startValue >= +value);
         isError ? setError(true) : setError(false)
         setSet(true)
+        setDisableButtonSet(false)
         isError ? setDisableButtonSet(true) : setDisableButtonSet(false)
         setMaxValue(value);
     }
