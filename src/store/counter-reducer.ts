@@ -1,28 +1,34 @@
 export type CounterType = {
-    isLoading: boolean
+    count: number
 }
 
 const initState = {
-    isLoading: false
+    count: 0
 }
 
 
-export const counterReducer = (state: CounterType = initState, action: LoadingActionType): CounterType => { // fix any
+export const counterReducer = (state: CounterType = initState, action: CounterActionType): CounterType => {
     switch (action.type) {
-        case 'LOADING': {
-            return {...state,isLoading:action.payload.isLoading}
+        case 'SET_COUNT': {
+            return {...state,count:action.payload.count}
         }
         default:
             return {...state}
     }
 }
 
-type LoadingActionType = ReturnType<typeof loadingAC>
-export const loadingAC = (isLoading: boolean) => {
+
+// Action creators
+
+type CounterActionType = SetCountActionType
+
+
+type SetCountActionType = ReturnType<typeof setCount>
+export const setCount = (count: number) => {
     return {
-        type:"LOADING",
+        type:"SET_COUNT",
         payload:{
-            isLoading,
+            count,
         },
     }as const
 }
