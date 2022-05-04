@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import s from "./App.module.css";
 import Button from "./Button";
 import {useDispatch, useSelector} from "react-redux";
@@ -37,8 +37,7 @@ const CounterMain: React.FC<CountMainPropsType> = (props) => {
     const resetCount = () => {
         dispatch(setCount(props.startCount))
     }
-    console.log(count.count)
-    return (
+     return (
         <div className={count.count === props.maxCount ? s.mainContainerStop : s.mainContainer}>
             <div className={s.showContainer}>
 
