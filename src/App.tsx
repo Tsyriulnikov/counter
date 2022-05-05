@@ -1,11 +1,18 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import CounterMain from "./CounterMain";
 
 import s from "./App.module.css";
 import Button from "./Button";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "./store/store";
-import {CounterType, setDisableButtonSet, setError, setMaxValue, setSet, setStartValue} from "./store/counter-reducer";
+import {
+    CounterType,
+    setCount,
+    setError,
+    setMaxValue,
+    setSet,
+    setStartValue
+} from "./store/counter-reducer";
 
 const App: React.FC = () => {
     const dispatch = useDispatch()
@@ -13,19 +20,20 @@ const App: React.FC = () => {
 //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
     useEffect(() => {
         let maxValueStorage = localStorage.getItem("maxValue");
-        if (maxValueStorage) dispatch(setMaxValue(JSON.parse(maxValueStorage)))
         let startValueStorage = localStorage.getItem("startValue");
+        if (maxValueStorage) dispatch(setMaxValue(JSON.parse(maxValueStorage)));
         if (startValueStorage) {
-            dispatch(setStartValue(JSON.parse(startValueStorage)))
+            dispatch(setStartValue(JSON.parse(startValueStorage)));
         }
         ;
     }, [])
 //Нажтие на кнопку Set
     const setCounter = () => {
-        dispatch(setSet(false))
-        dispatch(setDisableButtonSet(true))
         localStorage.setItem('maxValue', JSON.stringify(parseInt(count.maxValue)))
         localStorage.setItem('startValue', JSON.stringify(parseInt(count.startValue)))
+        dispatch(setSet(false))
+        // При нажатии Set обновляем компоненту + сбрасывем стартовое значение
+        dispatch(setCount(+count.startValue))
     }
 //Обработка максимального значения
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,8 +41,6 @@ const App: React.FC = () => {
         let isError = (+count.startValue < 0 || +value <= 0 || +count.startValue >= +value);
         isError ? dispatch(setError(true)) : dispatch(setError(false))
         dispatch(setSet(true))
-        dispatch(setDisableButtonSet(false))
-        isError ? setDisableButtonSet(true) : setDisableButtonSet(false)
         dispatch(setMaxValue(value));
     }
 //Обработка стартового значения
@@ -43,8 +49,6 @@ const App: React.FC = () => {
         let isError = (+value < 0 || +count.maxValue <= 0 || +value >= +count.maxValue);
         isError ? dispatch(setError(true)) : dispatch(setError(false))
         dispatch(setSet(true))
-        dispatch(setDisableButtonSet(false))
-        isError ? setDisableButtonSet(true) : setDisableButtonSet(false)
         dispatch(setStartValue(value))
     }
     return (
@@ -69,15 +73,10 @@ const App: React.FC = () => {
                     </div>
                 </div>
                 <div className={s.buttonContainer}>
-                    <Button name={"Set"} callBackClick={setCounter} isDisabled={count.disableButton}/>
+                    <Button name={"Set"} callBackClick={setCounter} isDisabled={!count.set || count.error}/>
                 </div>
             </div>
-            <CounterMain
-                startCount={parseInt(count.startValue)}
-                maxCount={parseInt(count.maxValue)}
-                set={count.set}
-                error={count.error}
-            />
+            <CounterMain/>
         </div>
     )
 }

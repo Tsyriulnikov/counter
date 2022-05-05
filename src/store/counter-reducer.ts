@@ -4,7 +4,6 @@ export type CounterType = {
     startValue: string
     set: boolean
     error: boolean
-    disableButton: boolean
 }
 
 const initState = {
@@ -13,7 +12,6 @@ const initState = {
     startValue: "0",
     set: true,
     error: false,
-    disableButton: false
 }
 
 
@@ -34,9 +32,6 @@ export const counterReducer = (state: CounterType = initState, action: CounterAc
         case 'SET_ERROR': {
             return {...state, error: action.payload.error}
         }
-        case 'SET_DISABLE_BUTTON': {
-            return {...state, disableButton: action.payload.disableButton}
-        }
         default:
             return {...state}
     }
@@ -46,7 +41,7 @@ export const counterReducer = (state: CounterType = initState, action: CounterAc
 // Action creators
 
 type CounterActionType = SetCountActionType | MaxValueActionType | StartValueActionType |
-    SetActionType | ErrorActionType | DisableButtonActionType
+    SetActionType | ErrorActionType
 
 
 type SetCountActionType = ReturnType<typeof setCount>
@@ -91,15 +86,6 @@ export const setError = (error: boolean) => {
         type: "SET_ERROR",
         payload: {
             error,
-        },
-    } as const
-}
-type DisableButtonActionType = ReturnType<typeof setDisableButtonSet>
-export const setDisableButtonSet = (disableButton: boolean) => {
-    return {
-        type: "SET_DISABLE_BUTTON",
-        payload: {
-            disableButton,
         },
     } as const
 }

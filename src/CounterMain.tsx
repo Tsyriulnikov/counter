@@ -5,13 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {CounterType, setCount} from "./store/counter-reducer";
 import {AppStoreType} from "./store/store";
 
-type CountMainPropsType = {
-    startCount: number
-    maxCount: number
-    set: boolean
-    error: boolean
-}
-const CounterMain: React.FC<CountMainPropsType> = (props) => {
+const CounterMain: React.FC = ()=> {
     const dispatch = useDispatch()
     const count = useSelector<AppStoreType, CounterType>(state => state.counterReducer)
 
@@ -20,32 +14,27 @@ const CounterMain: React.FC<CountMainPropsType> = (props) => {
 //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
     useEffect(() => {
         let startValueStorage = localStorage.getItem("startValue");
-        // if (startValueStorage) setCount(JSON.parse(startValueStorage))
         if (startValueStorage) dispatch(setCount(JSON.parse(startValueStorage)))
     }, [])
-// При нажатии Set обновляем компоненту + сбрасывем стартовое значение
-    useEffect(() => {
-        resetCount()
-    }, [props.set])
 // Увеличиваем значение счётчика.
     const incCount = () => {
-        if (count.count < props.maxCount) {
+        if (count.count < +count.maxValue) {
             dispatch(setCount(count.count + 1))
         }
     }
 //Сброс счётчика
     const resetCount = () => {
-        dispatch(setCount(props.startCount))
+        dispatch(setCount(+count.startValue))
     }
      return (
-        <div className={count.count === props.maxCount ? s.mainContainerStop : s.mainContainer}>
+        <div className={count.count === +count.maxValue ? s.mainContainerStop : s.mainContainer}>
             <div className={s.showContainer}>
 
-                {!props.set && !props.error ?
-                    <div className={count.count === props.maxCount ? s.red
+                {!count.set && !count.error ?
+                    <div className={count.count === +count.maxValue ? s.red
                         : s.showValue}>{count.count}</div>
 
-                    : <div>{props.error ?
+                    : <div>{count.error ?
                         messegeIncorrect :
                         messegeInputValue
                     }
@@ -53,10 +42,10 @@ const CounterMain: React.FC<CountMainPropsType> = (props) => {
                 }
             </div>
             <div className={s.buttonContainer}>
-                <Button name={"Increment"} callBackClick={incCount} isDisabled={count.count === props.maxCount ||
-                    props.set}/>
-                <Button name={"Reset"} callBackClick={resetCount} isDisabled={count.count === props.startCount ||
-                    props.set}/>
+                <Button name={"Increment"} callBackClick={incCount} isDisabled={count.count === +count.maxValue ||
+                    count.set}/>
+                <Button name={"Reset"} callBackClick={resetCount} isDisabled={count.count === +count.startValue ||
+                    count.set}/>
             </div>
         </div>
     );
