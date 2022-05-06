@@ -52,11 +52,11 @@ const App: React.FC = () => {
         dispatch(setStartValue(value))
     }
     return (
-        <div className={s.mainApp}>
+        <div className={s.mainBlock}>
 
             <div className={s.mainContainer}>
-                <div className={s.showContainer}>
-                    <div>
+                <div className={s.setBlock}>
+                    <div className={s.inputBlock}>
                        <span>max value:
                            <input className={count.error ? s.error : ""}
                                   type={'number'}
@@ -71,12 +71,14 @@ const App: React.FC = () => {
                                   onChange={startValueHandler}/>
                        </span>
                     </div>
+
+                    <div className={s.setButtonBlock}>
+                        <Button name={"Set"} callBackClick={setCounter} isDisabled={!count.set || count.error}/>
+                    </div>
                 </div>
-                <div className={s.buttonContainer}>
-                    <Button name={"Set"} callBackClick={setCounter} isDisabled={!count.set || count.error}/>
-                </div>
+                <CounterMain/>
             </div>
-            <CounterMain/>
+
         </div>
     )
 }

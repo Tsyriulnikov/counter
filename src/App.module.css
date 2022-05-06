@@ -1,71 +1,126 @@
-.mainApp {
-        height: auto;
-        width: 1000px;
-        margin: 150px auto;
-        padding: 10px;
-        border-radius: 8px;
-    }
-
-.red {
-    color: red;
-    font-size: xx-large;
-}
-
-.showValue{
-    color: black;
-    font-size: xx-large;
-}
-
-input {
-        width: 50px;
+.mainBlock {
+    min-height: 100vh;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
 }
-.mainContainer {
-       display: inline-block;
-        border: 1px solid black;
-        box-shadow: 1px 1px 5px #000;
-        height: 170px;
-        width: 300px;
-        margin: 150px 10px 10px 7em;
-        padding: 10px;
-        border-radius: 8px;
-        background: aqua;
-        text-align: center;
+.mainContainer{
+    height: 100%;
+    width: 80%  ;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-.mainContainerStop {
-    display: inline-block;
-    border: 1px solid black;
-    box-shadow: 1px 1px 5px #000;
-    height: 170px;
+
+.setBlock {
+    max-width: 100%;
+    display: flex;
     width: 300px;
-    margin: 150px 10px 10px 7em;
-    padding: 10px;
-    border-radius: 8px;
-    background: palevioletred;
+    height: 200px;
+    background-color: #ffffff;
+    max-height: 100%;
+    overflow-wrap: break-word;
+    justify-content: space-evenly;
+    flex-direction: column;
+    border: 1px solid;
+    border-radius: 5%;
+
 }
-.showContainer {
-        font-size: larger;
-        text-align: center;
-        border: 1px solid black;
-        box-shadow: 1px 1px 5px #000;
-        height: 50px;
-        width: 170px;
-        margin: 5px auto;
-        padding: 18px;
-        border-radius: 5px;
-        background: white;
+.inputBlock {
+   height: 60%;
+    width: 90%;
+    border: 1px solid;
+    border-radius: 5%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 100%;
+    margin: auto;
 }
-.buttonContainer{
-        border: 1px solid black;
-        box-shadow: 1px 1px 5px #000;
-        height: 30px;
-        width: 170px;
-        margin: 12px auto;
-        padding: 18px;
-        text-align: center;
-        border-radius: 5px;
+.setButtonBlock {
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
 }
-.error {
-    border: red 1px solid;
-}
+
+
+
+
+
+
+/*.mainApp {*/
+/*        height: auto;*/
+/*        width: 1000px;*/
+/*        margin: 150px auto;*/
+/*        padding: 10px;*/
+/*        border-radius: 8px;*/
+/*    }*/
+
+/*.red {*/
+/*    color: red;*/
+/*    font-size: xx-large;*/
+/*}*/
+
+/*.showValue{*/
+/*    color: black;*/
+/*    font-size: xx-large;*/
+/*}*/
+
+/*input {*/
+/*        width: 50px;*/
+
+/*}*/
+/*.mainContainer {*/
+/*       display: inline-block;*/
+/*        border: 1px solid black;*/
+/*        box-shadow: 1px 1px 5px #000;*/
+/*        height: 170px;*/
+/*        width: 300px;*/
+/*        margin: 150px 10px 10px 7em;*/
+/*        padding: 10px;*/
+/*        border-radius: 8px;*/
+/*        background: aqua;*/
+/*        text-align: center;*/
+/*}*/
+
+/*.mainContainerStop {*/
+/*    display: inline-block;*/
+/*    border: 1px solid black;*/
+/*    box-shadow: 1px 1px 5px #000;*/
+/*    height: 170px;*/
+/*    width: 300px;*/
+/*    margin: 150px 10px 10px 7em;*/
+/*    padding: 10px;*/
+/*    border-radius: 8px;*/
+/*    background: palevioletred;*/
+/*}*/
+/*.showContainer {*/
+/*        font-size: larger;*/
+/*        text-align: center;*/
+/*        border: 1px solid black;*/
+/*        box-shadow: 1px 1px 5px #000;*/
+/*        height: 50px;*/
+/*        width: 170px;*/
+/*        margin: 5px auto;*/
+/*        padding: 18px;*/
+/*        border-radius: 5px;*/
+/*        background: white;*/
+/*}*/
+/*.buttonContainer{*/
+/*        border: 1px solid black;*/
+/*        box-shadow: 1px 1px 5px #000;*/
+/*        height: 30px;*/
+/*        width: 170px;*/
+/*        margin: 12px auto;*/
+/*        padding: 18px;*/
+/*        text-align: center;*/
+/*        border-radius: 5px;*/
+/*}*/
+/*.error {*/
+/*    border: red 1px solid;*/
+/*}*/
