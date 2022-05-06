@@ -6,9 +6,10 @@
     justify-content: center;
 
 }
-.mainContainer{
+
+.mainContainer {
     height: 100%;
-    width: 80%  ;
+    width: 80%;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -27,14 +28,15 @@
     overflow-wrap: break-word;
     justify-content: space-evenly;
     flex-direction: column;
-    border: 1px solid;
+    border: 3px solid blue;
     border-radius: 5%;
-
+margin-bottom: 10px;
 }
+
 .inputBlock {
     height: 60%;
     width: 90%;
-    border: 1px solid;
+    border: 3px solid blue;
     border-radius: 5%;
     display: flex;
     justify-content: center;
@@ -42,88 +44,29 @@
     max-width: 100%;
     margin: auto;
 }
+
 .setButtonBlock {
-    margin: auto;
+    margin-bottom: auto;
     display: flex;
     justify-content: space-around;
 }
-.inputTextSpan{
-    padding: 10px;
 
+.inputTextSpan {
+    display: flex;
+    padding: 10px;
+    justify-content: space-evenly;
+    font-size: x-large;
+    max-width: 100%;
 }
 
+.errorInput {
+    background-color: #e08f92;
+    font-size: xx-large;
+    width: 100px;
+}
 
-
-
-
-/*.mainApp {*/
-/*        height: auto;*/
-/*        width: 1000px;*/
-/*        margin: 150px auto;*/
-/*        padding: 10px;*/
-/*        border-radius: 8px;*/
-/*    }*/
-
-/*.red {*/
-/*    color: red;*/
-/*    font-size: xx-large;*/
-/*}*/
-
-/*.showValue{*/
-/*    color: black;*/
-/*    font-size: xx-large;*/
-/*}*/
-
-/*input {*/
-/*        width: 50px;*/
-
-/*}*/
-/*.mainContainer {*/
-/*       display: inline-block;*/
-/*        border: 1px solid black;*/
-/*        box-shadow: 1px 1px 5px #000;*/
-/*        height: 170px;*/
-/*        width: 300px;*/
-/*        margin: 150px 10px 10px 7em;*/
-/*        padding: 10px;*/
-/*        border-radius: 8px;*/
-/*        background: aqua;*/
-/*        text-align: center;*/
-/*}*/
-
-/*.mainContainerStop {*/
-/*    display: inline-block;*/
-/*    border: 1px solid black;*/
-/*    box-shadow: 1px 1px 5px #000;*/
-/*    height: 170px;*/
-/*    width: 300px;*/
-/*    margin: 150px 10px 10px 7em;*/
-/*    padding: 10px;*/
-/*    border-radius: 8px;*/
-/*    background: palevioletred;*/
-/*}*/
-/*.showContainer {*/
-/*        font-size: larger;*/
-/*        text-align: center;*/
-/*        border: 1px solid black;*/
-/*        box-shadow: 1px 1px 5px #000;*/
-/*        height: 50px;*/
-/*        width: 170px;*/
-/*        margin: 5px auto;*/
-/*        padding: 18px;*/
-/*        border-radius: 5px;*/
-/*        background: white;*/
-/*}*/
-/*.buttonContainer{*/
-/*        border: 1px solid black;*/
-/*        box-shadow: 1px 1px 5px #000;*/
-/*        height: 30px;*/
-/*        width: 170px;*/
-/*        margin: 12px auto;*/
-/*        padding: 18px;*/
-/*        text-align: center;*/
-/*        border-radius: 5px;*/
-/*}*/
-/*.error {*/
-/*    border: red 1px solid;*/
-/*}*/
+.normalInput {
+    background-color: white;
+    font-size: xx-large;
+    width: 100px;
+}

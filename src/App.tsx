@@ -58,14 +58,14 @@ const App: React.FC = () => {
                 <div className={s.setBlock}>
                     <div className={s.inputBlock}>
                        <span className={s.inputTextSpan}>max value:
-                           <input className={count.error ? s.error : ""}
+                           <input className={count.error ? s.errorInput : s.normalInput}
                                   type={'number'}
                                   value={count.maxValue}
                                   onChange={maxValueHandler}/>
                            </span>
                         <br/>
-                        <span>start value:
-                           <input className={count.error ? s.error : ""}
+                        <span className={s.inputTextSpan}>start value:
+                           <input className={count.error ? s.errorInput : s.normalInput}
                                   type={'number'}
                                   value={count.startValue}
                                   onChange={startValueHandler}/>
