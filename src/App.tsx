@@ -57,7 +57,7 @@ const App: React.FC = () => {
             <div className={s.mainContainer}>
                 <div className={s.setBlock}>
                     <div className={s.inputBlock}>
-                       <span>max value:
+                       <span className={s.inputTextSpan}>max value:
                            <input className={count.error ? s.error : ""}
                                   type={'number'}
                                   value={count.maxValue}

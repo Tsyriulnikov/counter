@@ -29,13 +29,13 @@ const CounterMain: React.FC = () => {
     return (
         // <div className={count.count === +count.maxValue ? s.mainContainerStop : s.mainContainer}>
         <div className={s.countBlock}>
-            <div className={s.showBlock}>
+            <div className={count.count === +count.maxValue ? s.showStopBlock:s.showBlock}>
                 {!count.set && !count.error ?
 
-                    <div className={count.count === +count.maxValue ? s.red
+                    <div className={count.count === +count.maxValue ? s.redValue
                         : s.showValue}>{count.count}</div>
 
-                    : <div>{count.error ?
+                    : <div className={s.messageStyle}>{count.error ?
                         messegeIncorrect :
                         messegeInputValue
                     }
