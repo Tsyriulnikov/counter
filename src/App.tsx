@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect} from 'react';
+import React, {ChangeEvent, memo, useEffect} from 'react';
 import CounterMain from "./CounterMain";
 
 import s from "./App.module.css";
@@ -14,7 +14,7 @@ import {
     setStartValue
 } from "./store/counter-reducer";
 
-const App: React.FC = () => {
+const App: React.FC = memo( () => {
     const dispatch = useDispatch()
     const count = useSelector<AppStoreType, CounterType>(state => state.counterReducer)
 //Инициализация счётчика после перезагрузки страницы.Берём значение из localStorage
@@ -81,5 +81,5 @@ const App: React.FC = () => {
 
         </div>
     )
-}
+})
 export default App

@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
+import React, {memo, useEffect} from "react";
 import s from "./CounterMain.module.css";
 import Button from "./Button";
 import {useDispatch, useSelector} from "react-redux";
 import {CounterType, setCount} from "./store/counter-reducer";
 import {AppStoreType} from "./store/store";
 
-const CounterMain: React.FC = () => {
+const CounterMain: React.FC = memo(() => {
     const dispatch = useDispatch()
     const count = useSelector<AppStoreType, CounterType>(state => state.counterReducer)
 
@@ -50,5 +50,5 @@ const CounterMain: React.FC = () => {
             </div>
         </div>
     );
-}
+})
 export default CounterMain;
