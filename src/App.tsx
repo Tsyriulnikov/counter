@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo, useEffect} from 'react';
+import React, {ChangeEvent, memo, useCallback, useEffect} from 'react';
 import CounterMain from "./CounterMain";
 
 import s from "./App.module.css";
@@ -28,13 +28,13 @@ const App: React.FC = memo( () => {
         ;
     }, [])
 //Нажтие на кнопку Set
-    const setCounter = () => {
+    const setCounter = useCallback( () => {
         localStorage.setItem('maxValue', JSON.stringify(parseInt(count.maxValue)))
         localStorage.setItem('startValue', JSON.stringify(parseInt(count.startValue)))
         dispatch(setSet(false))
         // При нажатии Set обновляем компоненту + сбрасывем стартовое значение
         dispatch(setCount(+count.startValue))
-    }
+    },[count.startValue])
 //Обработка максимального значения
     const maxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let value: string = e.currentTarget.value;

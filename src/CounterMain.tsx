@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from "react";
+import React, {memo, useCallback, useEffect} from "react";
 import s from "./CounterMain.module.css";
 import Button from "./Button";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,6 +6,7 @@ import {CounterType, setCount} from "./store/counter-reducer";
 import {AppStoreType} from "./store/store";
 
 const CounterMain: React.FC = memo(() => {
+   console.log("counter main")
     const dispatch = useDispatch()
     const count = useSelector<AppStoreType, CounterType>(state => state.counterReducer)
 
@@ -17,11 +18,11 @@ const CounterMain: React.FC = memo(() => {
         if (startValueStorage) dispatch(setCount(JSON.parse(startValueStorage)))
     }, [])
 // Увеличиваем значение счётчика.
-    const incCount = () => {
+    const incCount = useCallback(() => {
         if (count.count < +count.maxValue) {
             dispatch(setCount(count.count + 1))
         }
-    }
+    },[count.count, count.maxValue])
 //Сброс счётчика
     const resetCount = () => {
         dispatch(setCount(+count.startValue))
